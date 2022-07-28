@@ -100,12 +100,8 @@ int main(void){
         int month_sum = 0; //當月總花費
         int day_sum = 0; //當日總花費
         int total = 0; //總花費
-        int sum1 = 0, sum2 = 0, sum3 = 0,
-            sum4 = 0, sum5 = 0, sum6 = 0,
-            sum7 = 0, sum8 = 0, sum9 = 0; //各類總和
-        double percent1 = 0, percent2 = 0, percent3 = 0,
-                percent4 = 0, percent5 = 0, percent6 = 0,
-                percent7 = 0, percent8 = 0, percent9 = 0; //各類佔比
+        int sum[9] = {0}; //各類總和
+        double percent[9] = {0}; //各類佔比
 
         account.start();
         cout << "請輸入要使用的功能: ";
@@ -385,120 +381,56 @@ int main(void){
                     for(int j=1; j<=31; j++){
                         for(int k=0; k<50; k++){
                             if(catagory[i][j][k] == "早餐"){
-                                sum1 += price[i][j][k];
+                                sum[0] += price[i][j][k];
                             }
                             if(catagory[i][j][k] == "中餐"){
-                                sum2 += price[i][j][k];
+                                sum[1] += price[i][j][k];
                             }
                             if(catagory[i][j][k] == "晚餐"){
-                                sum3 += price[i][j][k];
+                                sum[2] += price[i][j][k];
                             }
                             if(catagory[i][j][k] == "飲料"){
-                                sum4 += price[i][j][k];
+                                sum[3] += price[i][j][k];
                             }
                             if(catagory[i][j][k] == "交通"){
-                                sum5 += price[i][j][k];
+                                sum[4] += price[i][j][k];
                             }
                             if(catagory[i][j][k] == "生活"){
-                                sum6 += price[i][j][k];
+                                sum[5] += price[i][j][k];
                             }
                             if(catagory[i][j][k] == "娛樂"){
-                                sum7 += price[i][j][k];
+                                sum[6] += price[i][j][k];
                             }
                             if(catagory[i][j][k] == "教育"){
-                                sum8 += price[i][j][k];
+                                sum[7] += price[i][j][k];
                             }
                             if(catagory[i][j][k] == "其他"){
-                                sum9 += price[i][j][k];
+                                sum[8] += price[i][j][k];
                             }
                         }
                     }
                 }
-                //計算比例
-                percent1 = (double)sum1 / total *100;
-                percent2 = (double)sum2 / total *100;
-                percent3 = (double)sum3 / total *100;
-                percent4 = (double)sum4 / total *100;
-                percent5 = (double)sum5 / total *100;
-                percent6 = (double)sum6 / total *100;
-                percent7 = (double)sum7 / total *100;
-                percent8 = (double)sum8 / total *100;
-                percent9 = (double)sum9 / total *100;
-
-                //初始數字
-                if(sum1 < 0 && sum2 < 0 && sum3 < 0 && sum4 < 0 && sum5 < 0 && sum6 < 0 && sum7 < 0 && sum8 < 0 && sum9 < 0){
-                    percent1 = 0;
-                    percent2 = 0;
-                    percent3 = 0;
-                    percent4 = 0;
-                    percent5 = 0;
-                    percent6 = 0;
-                    percent7 = 0;
-                    percent8 = 0;
-                    percent9 = 0;
-                }
-
-                //四捨五入
-                if(percent1 - floor(percent1) >= 0.5){
-                    percent1 = floor(percent1) + 1;
-                }
-                else{
-                    percent1 = floor(percent1);
-                }
-                if(percent2 - floor(percent2) >= 0.5){
-                    percent2 = floor(percent2) + 1;
-                }
-                else{
-                    percent2 = floor(percent2);
-                }
-                if(percent3 - floor(percent3) >= 0.5){
-                    percent3 = floor(percent3) + 1;
-                }
-                else{
-                    percent3 = floor(percent3);
-                }
-                if(percent4 - floor(percent4) >= 0.5){
-                    percent4 = floor(percent4) + 1;
-                }
-                else{
-                    percent4 = floor(percent4);
-                }
-                if(percent5 - floor(percent5) >= 0.5){
-                    percent5 = floor(percent5) + 1;
-                }
-                else{
-                    percent5 = floor(percent5);
-                }
-                if(percent6 - floor(percent6) >= 0.5){
-                    percent6 = floor(percent6) + 1;
-                }
-                else{
-                    percent6 = floor(percent6);
-                }
-                if(percent7 - floor(percent7) >= 0.5){
-                    percent7 = floor(percent7) + 1;
-                }
-                else{
-                    percent7 = floor(percent7);
-                }
-                if(percent8 - floor(percent8) >= 0.5){
-                    percent8 = floor(percent8) + 1;
-                }
-                else{
-                    percent8 = floor(percent8);
-                }
-                if(percent9 - floor(percent9) >= 0.5){
-                    percent9 = floor(percent9) + 1;
-                }
-                else{
-                    percent9 = floor(percent9);
+                for(int i=0; i<9; i++){
+                    //計算比例
+                    percent[i] = (double)sum[i] / total *100;
+                    //初始數字
+                    if(sum[i] < 0){
+                        percent[i] = 0;
+                    }
+                    //四捨五入
+                    if(percent[i] - floor(percent[i]) >= 0.5){
+                    percent[i] = floor(percent[i]) + 1;
+                    }
+                    else{
+                        percent[i] = floor(percent[i]);
+                    }
                 }
 
                 cout << "各類型消費佔的比例:" << endl;
                 cout << "---------------------------------------------------------" << endl;
-                printf("|\t早餐: %d%%\t 中餐: %d%%\t 晚餐: %d%%\t|\n", (int)percent1, (int)percent2, (int)percent3);
-                printf("|\t飲料: %d%%\t 交通: %d%%\t 生活: %d%%\t|\n", (int)percent4, (int)percent5, (int)percent6);
-                printf("|\t娛樂: %d%%\t 教育: %d%%\t 其他: %d%%\t|\n", (int)percent7, (int)percent8, (int)percent9);
+                printf("|\t早餐: %d%%\t 中餐: %d%%\t 晚餐: %d%%\t|\n", (int)percent[0], (int)percent[1], (int)percent[2]);
+                printf("|\t飲料: %d%%\t 交通: %d%%\t 生活: %d%%\t|\n", (int)percent[3], (int)percent[4], (int)percent[5]);
+                printf("|\t娛樂: %d%%\t 教育: %d%%\t 其他: %d%%\t|\n", (int)percent[6], (int)percent[7], (int)percent[8]);
                 cout << "---------------------------------------------------------" << endl;
                 cout << endl;
 
